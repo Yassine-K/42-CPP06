@@ -1,19 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Data.hpp                                           :+:      :+:    :+:   */
+/*   A.hpp                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ykhayri <ykhayri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/11 12:18:28 by ykhayri           #+#    #+#             */
-/*   Updated: 2024/08/11 12:59:58 by ykhayri          ###   ########.fr       */
+/*   Created: 2024/08/11 13:03:05 by ykhayri           #+#    #+#             */
+/*   Updated: 2024/08/11 13:03:12 by ykhayri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
-#include <iostream>
+#include "Base.hpp"
 
-struct Data {
-	std::string name;
-	int num;
+class A : public Base{
 };

@@ -5,29 +5,19 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ykhayri <ykhayri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/11 12:23:41 by ykhayri           #+#    #+#             */
-/*   Updated: 2024/08/11 14:29:02 by ykhayri          ###   ########.fr       */
+/*   Created: 2024/08/11 14:30:10 by ykhayri           #+#    #+#             */
+/*   Updated: 2024/08/11 14:51:55 by ykhayri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Serializer.hpp"
+#include "Base.hpp"
 
-int main(int ac, char **av) {
-	Data	origin;
-	Data	*originCp;
-	uintptr_t	ptr;
-
-	if (ac == 2)
-		origin.name = av[1];
-	else
-		origin.name = "Yassine";
-	origin.num = 42;
+int main() {
+	Base a;
+	Base *tmp;
 	
-	ptr = Serializer::serialize(&origin);
-	originCp = Serializer::deserialize(ptr);
-
-	std::cout << &origin << " - - - - - " << &origin <<std::endl;
-	std::cout << reinterpret_cast<char *>(ptr) << " - - - - - " << &origin <<std::endl;
-	std::cout << *reinterpret_cast<int *>(ptr + sizeof(std::string)) << " - - - - - " << &origin <<std::endl;
+	tmp = a.generate();
+	a.identify(tmp);
+	delete(tmp);
 	return 0;
 }
