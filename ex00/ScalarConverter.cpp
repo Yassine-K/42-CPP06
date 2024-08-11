@@ -6,20 +6,11 @@
 /*   By: ykhayri <ykhayri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 17:54:25 by ykhayri           #+#    #+#             */
-/*   Updated: 2024/08/10 18:37:10 by ykhayri          ###   ########.fr       */
+/*   Updated: 2024/08/11 12:06:32 by ykhayri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ScalarConverter.hpp"
-#include <climits>
-
-int occurence(std::string s, char c) {
-	int res = 0;
-	for(int i = 0; i < s.length(); i++)
-		if (s[i] == c)
-			res++;
-	return res;
-}
 
 ScalarConverter::ScalarConverter() {
 	
@@ -37,10 +28,37 @@ ScalarConverter::~ScalarConverter() {
 	
 }
 
-void ScalarConverter::convert(std::string s) {
-	std::cout << "char: " << s << std::endl;
-	std::cout << "int: " << std::stoi(s) << std::endl;
-	std::cout << "float: " << std::stof(s) << std::endl;
-	std::cout << "double: " << std::stod(s) << std::endl;
+void myStr(char res, std::string s) {
+	std::cout << "char: ";
+	if (s == "nan")
+		std:: cout << "impossible" << std::endl;
+	else if (res < 32 || res > 126)
+		std:: cout << "Non displayable" << std::endl;
+	else
+		std:: cout << "'" << res << "'" << std::endl;
 }
-	
+
+void myInt(double res, std::string s) {
+	std::cout << "int: ";
+	if (s == "nanf" || s == "nan" || res > INT_MAX || res < INT_MIN)
+		std:: cout << "impossible" << std::endl;
+	else
+		std:: cout << static_cast<int>(res) << std::endl;
+}
+
+void ScalarConverter::convert(std::string s) {
+	char	*endp;
+	double	res;
+
+	if (s.length() == 1 && (s[0] < 48 || s[0] > 57))
+		res = static_cast<int>(s[0]);
+	else {
+		res = strtod(s.c_str(), &endp);
+		if (endp[0] != 0 && (endp[1] || endp[0] != 'f' || (endp[0] == 'f' && (s.find('.') == s.npos && static_cast<int>(res) == static_cast<float>(res)))))
+			throw (std::invalid_argument("Invalid input!"));
+	}
+	myStr(res, s);
+	myInt(res, s);
+	std::cout << "float: " << static_cast<float>(res) << (static_cast<int>(res) == static_cast<float>(res) ? ".0f" : "f") << std::endl;
+	std::cout << "double: " << res << (static_cast<int>(res) == static_cast<double>(res) ? ".0" : "") << std::endl;
+}
